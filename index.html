@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Todo App</title>
+    <link
+      rel="icon"
+      href="./img/icon-head-title-todo-list-50.png"
+      type="image/icon type"
+    />
+    <link
+      rel="stylesheet"
+      href="./dist/css/main.css"
+    />
+    <script
+      src="./src/main.js"
+      type="module"
+    ></script>
+  </head>
+  <body class="app">
+    <div class="wrapper">
+      <header class="header">
+        <!-- <div class="brg-btn"></div> -->
+        <h1 class="app-name header__app-name">
+          <a
+            href="https://github.com/Eugene-CG"
+            class="app-name__link"
+            target="_blank"
+            >Todo App</a
+          >
+        </h1>
+        <form
+          action="#"
+          class="form"
+        >
+          <input
+            type="text"
+            class="search-line"
+          />
+          <button
+            type="button"
+            class="sort-btn sort-btn_list-handler"
+          >
+            SORT
+          </button>
+          <ul class="sort-list">
+            <li class="sort-list__item">Text</li>
+            <li class="sort-list__item">Text</li>
+            <li class="sort-list__item">Text</li>
+            <li class="sort-list__item">Text</li>
+          </ul>
+        </form>
+        <div class="note-options">
+          <label
+            for="note-options__checkbox"
+            class="note-options__label"
+          >
+            <img
+              src="./img/icon-header-menu-vertical-3dots-50.png"
+              alt="#"
+              class="note-options__img"
+            />
+          </label>
+          <input
+            id="note-options__checkbox"
+            type="checkbox"
+            class="note-options__checkbox"
+          />
+          <ul class="note-options__list">
+            <li class="note-options__list-item">Select all notes</li>
+            <li class="note-options__list-item">Share notes</li>
+          </ul>
+        </div>
+      </header>
+      <div class="content">
+        <aside class="aside">
+          <section class="notes">
+            <div class="notes__icon"></div>
+            <div class="notes__text common-text">Notes</div>
+          </section>
+          <section class="categories">
+            <article class="category">
+              <div class="category__icon"></div>
+              <div class="category__name common-text">category</div>
+            </article>
+            <article class="category edit-category">
+              <div class="category__icon edit-category__icon"></div>
+              <div class="category__name edit-category__name common-text">
+                Edit Categories
+              </div>
+            </article>
+          </section>
+          <nav class="app-contact">
+            <ul class="app-contact__list">
+              <li class="app-contact__list-item"><a href="#">Contact me</a></li>
+              <li class="app-contact__list-item"><a href="#">Contact me</a></li>
+              <li class="app-contact__list-item"><a href="#">Contact me</a></li>
+            </ul>
+          </nav>
+        </aside>
+        <main class="main">
+          <div class="notes-container">
+            <article class="note main__note note_finished">
+              <h2 class="note__name">note name</h2>
+              <div class="note__status-btns">
+                <button class="note__status-check"></button>
+                <button class="note__status-deleted"></button>
+              </div>
+              <p class="last-edit note__last-edit">
+                <span class="last-edit__span">Last edit:</span>
+                <time class="last-edit__time">07.10.22, 22:16</time>
+              </p>
+            </article>
+          </div>
+          <button class="add-note-btn main__add-note-btn"></button>
+          <!-- <article class="edit-note">
+            <div class="edit-note__options">
+              <button class="edit-note__btn-back"></button>
+              <div class="edit-note__btns-save-undo">
+                <button class="edit-note__btn-save">Save</button>
+                <button class="edit-note__btn-undo">Undo</button>
+              </div>
+            </div>
+            <form
+              action="#"
+              class="edit-note__form"
+            >
+              <input
+                type="text"
+                name="edit-note__note-name"
+                class="edit-note__note-name"
+              />
+              <textarea
+                name="edit-note__note-content"
+                class="edit-note__note-content"
+                id=""
+                cols="30"
+                rows="20"
+              ></textarea>
+            </form>
+          </article> -->
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

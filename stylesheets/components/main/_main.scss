@@ -1,0 +1,11 @@
+.main {
+  flex-grow: 1;
+  @include flexContainer {
+    flex-direction: column;
+    gap: 1em;
+  }
+  &__note {
+    width: 90%;
+    padding: 1em;
+  }
+}

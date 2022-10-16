@@ -1,0 +1,66 @@
+.edit-note {
+  @include flexContainer {
+    flex-direction: column;
+  }
+  &__form {
+    width: 90%;
+    font-size: 1.5em;
+    @include flexContainer {
+      flex-direction: column;
+      gap: 1em;
+    }
+  }
+  &__note-name {
+    padding-left: 1em;
+    border-radius: 1em;
+    font-size: 1em;
+    &:focus {
+      box-shadow: 0 0 10px 1px gray;
+    }
+  }
+  &__note-content {
+    padding: 1em;
+    border-radius: 0.25em;
+    font-size: 1em;
+  }
+  &__options {
+    width: 90%;
+    margin-bottom: 0.5em;
+    @include flexContainer {
+      justify-content: space-between;
+    }
+  }
+  &__btn-back {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-image: url("/img/icon-main-back-arrow-50.png");
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+  &__btn-save,
+  &__btn-undo {
+    height: 50px;
+    letter-spacing: 2px;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 1.5em;
+    background-color: #fff;
+    transition: transform 0.5s ease-in-out;
+    &:hover {
+      transform: scale(0.9);
+    }
+  }
+  &__btn-save {
+    margin-right: 0.5em;
+  }
+  &__btn-undo {
+  }
+}
+.edit-note__btns-save-undo {
+}
+.edit-note__btn-save {
+}
+.edit-note__btn-undo {
+}

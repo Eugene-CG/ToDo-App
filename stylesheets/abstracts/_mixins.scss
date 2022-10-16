@@ -1,0 +1,4 @@
+@mixin flexContainer {
+  display: flex;
+  @content;
+}

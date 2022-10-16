@@ -1,0 +1,7 @@
+.header {
+  min-width: 100%;
+  @include flexContainer {
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}

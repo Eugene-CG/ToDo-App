@@ -1,0 +1,48 @@
+.note {
+  margin-bottom: 0.25em;
+  position: relative;
+  border: 3px solid #000;
+  @include flexContainer {
+    flex-direction: column;
+  }
+  &_finished {
+    opacity: 0.5;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+  }
+  &__last-edit {
+    align-self: flex-end;
+  }
+  &__status-btns {
+  }
+  &__status-check,
+  &__status-deleted {
+    width: 2.5em;
+    height: 2.5em;
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+    border-radius: 50%;
+    background-color: none;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__status-check {
+    right: 4em;
+    background-image: url("/img/icon-note-check.png");
+  }
+  &__status-deleted {
+    background-image: url("/img/icon-note-delete.png");
+  }
+}
+
+.note__name {
+}
+.last-edit {
+}
+.note__last-edit {
+}
+.last-edit__span {
+}
+.last-edit__time {
+}
