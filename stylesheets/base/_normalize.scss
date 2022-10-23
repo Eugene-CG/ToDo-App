@@ -22,3 +22,6 @@ input[type="checkbox"] {
 img {
   width: 100%;
 }
+.exclude-pointer-events {
+  pointer-events: none;
+}

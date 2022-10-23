@@ -44,6 +44,7 @@
           <input
             type="text"
             class="search-line"
+            name="search-line"
           />
           <button
             type="button"
@@ -52,10 +53,24 @@
             SORT
           </button>
           <ul class="sort-list">
-            <li class="sort-list__item">Text</li>
-            <li class="sort-list__item">Text</li>
-            <li class="sort-list__item">Text</li>
-            <li class="sort-list__item">Text</li>
+            <li
+              class="sort-list__item"
+              data-="sort-btn_item_name"
+            >
+              Name
+            </li>
+            <li
+              class="sort-list__item"
+              data-="sort-btn_item_date"
+            >
+              Date
+            </li>
+            <li
+              class="sort-list__item"
+              data-="sort-btn_item_default"
+            >
+              Default
+            </li>
           </ul>
         </form>
         <div class="note-options">

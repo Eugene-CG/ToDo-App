@@ -38,6 +38,10 @@ img {
   width: 100%;
 }
 
+.exclude-pointer-events {
+  pointer-events: none;
+}
+
 .app {
   width: 100vw;
   height: 100vh;
@@ -127,7 +131,7 @@ img {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.sort-btn_list-handler:hover ~ .sort-list {
+.sort-list_open {
   display: block;
 }
 

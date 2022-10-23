@@ -1,193 +1,92 @@
-const appWrapper = document.querySelector(".wrapper");
-const main = document.querySelector(".main");
-let editCreatedNote = false;
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { findNote } from "./components/_findNote.js";
+import { editNoteMode } from "./components/_editNoteMode.js";
+import { getCurrentDate } from "./components/_getCurrentDate.js";
+import { addNoteBtn } from "./components/_add-note-btn.js";
+import { getFormData } from "./components/_getFormData.js";
+import { createNoteObject } from "./components/_createNoteObject.js";
+import { renderNotes } from "./components/_renderNotes.js";
+import { filterNotesByName } from "./components/headerForm/_filterNotesByName.js";
+import { sortNotesByName } from "./components/headerForm/_sortNotesByName.js";
+import { sortNotesByDate } from "./components/headerForm/_sortNotesByDate.js";
 
 let notes = [];
-const allNotesHtml = document.querySelectorAll(".note");
+const appWrapper = document.querySelector(".wrapper");
+const headerForm = document.querySelector(".form");
+const main = document.querySelector(".main");
+const sortList = document.querySelector(".sort-list");
+let editCreatedNote = false;
 appWrapper.addEventListener("click", ({ target }) => {
   if (target.closest(".add-note-btn")) {
     editCreatedNote = false;
-    main.innerHTML = noteEditingMode();
+    main.innerHTML = editNoteMode({});
   }
   if (target.closest(".note__status-check")) {
-    target.closest(".note").classList.toggle("note_finished");
+    findNote(target).classList.toggle("note_finished");
     return;
   }
   if (target.closest(".note__status-deleted")) {
-    console.log(notes.length);
-    const noteElement = target.closest(".note");
+    const noteElement = findNote(target);
     const indexToDelete = notes.findIndex(
       (note) => note.name === noteElement.dataset.noteName
     );
     notes.splice(indexToDelete, 1);
-    console.log(notes.length);
+    localStorage.setItem("notes", JSON.stringify(notes));
     noteElement.remove();
     return;
   }
   if (target.closest(".edit-note__btn-back")) {
-    // main.innerHTML = returnBackToNotes();
-    // main.innerHTML = "";
     const editNote = document.querySelector(".edit-note");
     editNote.classList.add("hide");
-    main.innerHTML = `
-          <div class="notes-container">
-          </div>
-          <button class="add-note-btn main__add-note-btn"></button>`;
-    renderNotes();
+    main.innerHTML = addNoteBtn();
+    renderNotes(notes);
   }
   if (target.closest(".edit-note__btn-save")) {
-    // notes.push(addNewNote());
-    const editNoteForm = document.querySelector(".edit-note__form");
+    const formData = getFormData();
+    console.log(notes);
     const createdNoteIndex = notes.findIndex(
-      (note) => note.name === editNoteForm["edit-note__note-name"].value
+      (note) => note.name === formData.noteName
     );
-    const newNoteObject = createNoteObject();
+    const newNoteObject = createNoteObject(formData, getCurrentDate());
     if (!createdNoteIndex || editCreatedNote) {
       notes.splice(createdNoteIndex, 1, newNoteObject);
     } else {
       editCreatedNote = false;
-      console.log(createdNoteIndex);
       notes.push(newNoteObject);
     }
-    // const newNoteHtml = createNoteHtml(newNoteObject);
+    localStorage.setItem("notes", JSON.stringify(notes));
   }
   if (target.closest(".note")) {
-    // target.closest(".note").dataset.noteName;
     editCreatedNote = true;
-    const noteTitleName = target.closest(".note").dataset.noteName;
-    const s = notes.find((note, index) => note.name === noteTitleName);
-    console.log(s);
-
-    main.innerHTML = createdNoteEditingMode(s);
+    const noteTitleName = findNote(target).dataset.noteName;
+    const noteObject = notes.find((note, index) => note.name === noteTitleName);
+    main.innerHTML = editNoteMode(noteObject);
+  }
+  if (target.closest(".sort-btn_list-handler")) {
+    sortList.classList.toggle("sort-list_open");
+    main.classList.toggle("exclude-pointer-events");
+  }
+  if (target.closest(".sort-list__item")) {
+    let notesCopy = [...notes];
+    if (target.innerText === "Name") {
+      sortNotesByName(notesCopy);
+    }
+    if (target.innerText === "Date") {
+      notesCopy = sortNotesByDate(notesCopy);
+    }
+    renderNotes(notesCopy);
   }
 });
-window.addEventListener("DOMContentLoaded", () => {
-  renderNotes();
+headerForm.addEventListener("input", ({ target }) => {
+  if (target.closest(".search-line")) {
+    const filteredByNameNotes = filterNotesByName(
+      headerForm["search-line"].value,
+      notes
+    );
+    renderNotes(filteredByNameNotes);
+  }
 });
-//
-const noteEditingMode = () => {
-  return `
-    <article class="edit-note">
-            <div class="edit-note__options">
-              <button class="edit-note__btn-back"></button>
-              <div class="edit-note__btns-save-undo">
-                <button class="edit-note__btn-save">Save</button>
-                <button class="edit-note__btn-undo">Undo</button>
-              </div>
-            </div>
-            <form
-              action="#"
-              class="edit-note__form"
-            >
-              <input
-                type="text"
-                name="edit-note__note-name"
-                class="edit-note__note-name"
-              />
-              <textarea
-                name="edit-note__note-content"
-                class="edit-note__note-content"
-                id=""
-                cols="30"
-                rows="20"
-              ></textarea>
-            </form>
-          </article>`;
-};
-const createdNoteEditingMode = ({ name, content }) => {
-  return `
-    <article class="edit-note">
-            <div class="edit-note__options">
-              <button class="edit-note__btn-back"></button>
-              <div class="edit-note__btns-save-undo">
-                <button class="edit-note__btn-save">Save</button>
-                <button class="edit-note__btn-undo">Undo</button>
-              </div>
-            </div>
-            <form
-              action="#"
-              class="edit-note__form"
-            >
-              <input
-                type="text"
-                name="edit-note__note-name"
-                class="edit-note__note-name"
-                value="${name}"
-              />
-              <textarea
-                name="edit-note__note-content"
-                class="edit-note__note-content"
-                id=""
-                cols="30"
-                rows="20"
-              >${content}</textarea>
-            </form>
-          </article>`;
-};
-const returnBackToNotes = () => {};
 
-const createNoteObject = () => {
-  const editNoteForm = document.querySelector(".edit-note__form");
-  return {
-    name: editNoteForm["edit-note__note-name"].value,
-    category: null,
-    content: editNoteForm["edit-note__note-content"].value,
-    lastEdit: getCurrentDate(),
-  };
-};
-
-const getCurrentDate = () => {
-  const dateNow = new Date();
-  const editTime = `${dateNow.getUTCDate()} \
-${monthNames[dateNow.getMonth()]}, \
-${dateNow.getHours()}:\
-${dateNow.getMinutes()}:\
-${dateNow.getSeconds()}`;
-  return editTime;
-};
-
-// const createNoteHtml = ({ name, category, content, lastEdit }) => {
-//   return `
-//     <article class="note main__note">
-//             <h2 class="note__name">${name}</h2>
-//             <p class="last-edit note__last-edit">
-//               <span class="last-edit__span">Last edit:</span>
-//               <time class="last-edit__time">${lastEdit}</time>
-//             </p>
-//           </article>
-//           `;
-// };
-//
-const renderNotes = () => {
-  const notesContainer = document.querySelector(".notes-container");
-  const notesHtml = notes.map((note) => {
-    return `
-    <article class="note main__note" data-note-name="${note.name}">
-            <h2 class="note__name">${note.name}</h2>
-            <div class="note__status-btns">
-                <button class="note__status-check"></button>
-                <button class="note__status-deleted"></button>
-              </div>
-            <p class="last-edit note__last-edit">
-              <span class="last-edit__span">Last edit:</span>
-              <time class="last-edit__time">${note.lastEdit}</time>
-            </p>
-          </article>
-          `;
-  });
-  notesContainer.innerHTML = notesHtml.join("");
-};
+window.addEventListener("DOMContentLoaded", () => {
+  notes = JSON.parse(localStorage.getItem("notes")) || [];
+  renderNotes(notes);
+});
